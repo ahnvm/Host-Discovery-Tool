@@ -11,10 +11,12 @@ import time
 colorama.init()
 
 iplist = []
+silent = False
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s')
 
 def ping(addr, args=None):
+    global silent
     global iplist
     ip_packet = IP()
     icmp_packet = ICMP()
@@ -54,6 +56,16 @@ def scan_network(ip, ip_range, args) -> List:
     with ThreadPoolExecutor(max_workers=32) as executor:
         ip_range = [f"{ip}.{i}" for i in range(ip_range[0], ip_range[1]+1)]
         executor.map(lambda addr: ping(addr, args), ip_range)
+    if not silent:
+        print(f"{colorama.Fore.YELLOW}Press enter to continue...{colorama.Style.RESET_ALL}")
+        try:
+            input()
+        except KeyboardInterrupt:
+            print(f"{colorama.Fore.YELLOW}Exiting...{colorama.Style.RESET_ALL}")
+            sys.exit(0)
+        except EOFError:
+            print(f"{colorama.Fore.YELLOW}Exiting...{colorama.Style.RESET_ALL}")
+            sys.exit(0)    
     return iplist
 
 def print_results(outlist):
