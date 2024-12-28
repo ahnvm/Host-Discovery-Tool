@@ -28,10 +28,13 @@ def menuChoices(choice):
     global g_ipRange_list
     global g_ip 
     if choice == "1":
+        g_iplist.clear()
         g_iplist = menuOptions.pingOption(g_ip, g_ipRange_list, [])
     elif choice == "2":
+        g_iplist.clear()
         g_iplist = menuOptions.pingOption(g_ip, g_ipRange_list, ["-s"])
     elif choice == "3":
+        g_iplist.clear()
         g_iplist = menuOptions.pingOption(g_ip, g_ipRange_list, ["-v"])
     elif choice == "4":
         g_ip = menuOptions.set_ip()
