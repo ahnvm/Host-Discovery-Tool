@@ -15,7 +15,7 @@ YELLOW = \033[0;33m
 
 all: venv install
 
-venv: $(VENV_DIR)
+venv:
 ifeq ($(OS),Windows_NT)
 	$(PYTHON) -m venv $(VENV_DIR)
 else
